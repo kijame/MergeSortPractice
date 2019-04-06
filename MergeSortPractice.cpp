@@ -16,6 +16,7 @@ void merge(std::vector<int>& a, std::vector<int>& aux, int lo, int mid, int hi){
 		aux[k] = a[k];
 	}
 
+
 	for (int k = lo; k<=hi; k++){
 		if (i > mid){
 			a[k] = aux[j];
@@ -25,15 +26,19 @@ void merge(std::vector<int>& a, std::vector<int>& aux, int lo, int mid, int hi){
 			a[k] = aux[i];
 			i++;
 		}
-		else if (a[i]<a[j]){
-			a[k] = a[i];
+		else if (aux[i]<aux[j]){
+			a[k] = aux[i];
 			i++;
 		}
 		else{
-			a[k] = a[j];
+			a[k] = aux[j];
 			j++;
 		}
+
+
 	}
+
+
 }
 
 
@@ -47,16 +52,14 @@ void mergeSort(std::vector<int>& a, std::vector<int>& aux, int lo, int hi){
 	merge(a,aux,lo,mid,hi);
 }
 
-void mergeSort(std::vector<int>& a){
-	int c = a.size();
-	std::vector<int> aux(c);
+void mergeSort(std::vector<int>& a, std::vector<int>& aux){
 	mergeSort(a,aux,0,(a.size() - 1));
 }
 
 int main(){
 	std::vector<int> unsorted;
-
-	for (int i = 0; i<10; i++){
+	
+	for (int i = 0; i<21; i++){
 		unsorted.push_back(rand() % 100);
 	}
 
@@ -64,11 +67,18 @@ int main(){
 		std::cout << "[" << i << "]";
 	}
 
-	mergeSort(unsorted);
+	std::cout << std::endl << std::endl;
+
+	int c = unsorted.size();
+	std::vector<int> aux(c);
+	mergeSort(unsorted, aux);
 	
 	std::cout << std::endl << "Displaying sorted array \n";
 
 	for (auto i : unsorted){
 		std::cout << "[" << i << "]";
 	}
+
+	std::cout << std::endl;
+
 }

@@ -8,6 +8,53 @@
 #include <cstdlib>
 
 
+void mergeSort(std::vector<int>& a, std::vector<int>& aux);
+
+void mergeSort(std::vector<int>& a, std::vector<int>& aux, int lo, int hi);
+
+void merge(std::vector<int>& a, std::vector<int>& aux, int lo, int mid, int hi);
+
+int main(){
+	std::vector<int> unsorted;
+	
+	for (int i = 0; i<21; i++){
+		unsorted.push_back(rand() % 100);
+	}
+
+	for (auto i : unsorted){
+		std::cout << "[" << i << "]";
+	}
+
+	std::cout << std::endl << std::endl;
+
+	int c = unsorted.size();
+	std::vector<int> aux(c);
+	mergeSort(unsorted, aux);
+	
+	std::cout << std::endl << "Displaying sorted array \n";
+
+	for (auto i : unsorted){
+		std::cout << "[" << i << "]";
+	}
+
+	std::cout << std::endl;
+
+}
+
+void mergeSort(std::vector<int>& a, std::vector<int>& aux){
+	mergeSort(a,aux,0,(a.size() - 1));
+}
+
+void mergeSort(std::vector<int>& a, std::vector<int>& aux, int lo, int hi){
+	if (hi <= lo)
+		return;
+
+	int mid = lo + (hi - lo)/2;
+	mergeSort(a,aux,lo,mid);
+	mergeSort(a,aux,mid+1,hi);
+	merge(a,aux,lo,mid,hi);
+}
+
 void merge(std::vector<int>& a, std::vector<int>& aux, int lo, int mid, int hi){
 	int i = lo;
 	int j = mid+1;
@@ -42,43 +89,4 @@ void merge(std::vector<int>& a, std::vector<int>& aux, int lo, int mid, int hi){
 }
 
 
-void mergeSort(std::vector<int>& a, std::vector<int>& aux, int lo, int hi){
-	if (hi <= lo)
-		return;
 
-	int mid = lo + (hi - lo)/2;
-	mergeSort(a,aux,lo,mid);
-	mergeSort(a,aux,mid+1,hi);
-	merge(a,aux,lo,mid,hi);
-}
-
-void mergeSort(std::vector<int>& a, std::vector<int>& aux){
-	mergeSort(a,aux,0,(a.size() - 1));
-}
-
-int main(){
-	std::vector<int> unsorted;
-	
-	for (int i = 0; i<21; i++){
-		unsorted.push_back(rand() % 100);
-	}
-
-	for (auto i : unsorted){
-		std::cout << "[" << i << "]";
-	}
-
-	std::cout << std::endl << std::endl;
-
-	int c = unsorted.size();
-	std::vector<int> aux(c);
-	mergeSort(unsorted, aux);
-	
-	std::cout << std::endl << "Displaying sorted array \n";
-
-	for (auto i : unsorted){
-		std::cout << "[" << i << "]";
-	}
-
-	std::cout << std::endl;
-
-}

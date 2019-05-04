@@ -76,7 +76,7 @@ int partition(std::vector<int>& a, int lo, int hi){
 	return j;
 }
 		
-
+//note
 
 
 
